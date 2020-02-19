@@ -12,7 +12,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_security_group" "web_sg" {
-  name   = "web_sg"
+  name   = "${var.name}-web_sg"
   vpc_id = var.vpc_id
   ingress {
     from_port   = 80
@@ -34,7 +34,7 @@ resource "aws_instance" "web" {
   subnet_id       = var.subnet_id
   security_groups = [aws_security_group.web_sg.id]
   tags = {
-    Name = "Web1"
+    Name = "${var.name}-Web"
   }
 }
 
@@ -43,3 +43,6 @@ variable "region" {}
 variable "vpc_id" {}
 variable "subnet_id" {}
 variable "ec2_type" {}
+variable "name" {
+  description = "Name which to use as a prefix for resources"
+}

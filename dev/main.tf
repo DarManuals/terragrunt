@@ -23,4 +23,5 @@ module "web" {
   ec2_type  = var.ec2_type
   subnet_id = module.network.private_subnet_id
   vpc_id    = module.network.vpc_id
+  name      = "dev"
 }
