@@ -1,5 +1,15 @@
+terraform {
+  required_version = ">= 0.12"
+  backend "s3" {}
+}
+
+provider "aws" {
+  profile = var.profile
+  region  = var.region
+}
+
 module "network" {
-  source  = "./network"
+  source  = "../modules/network"
   profile = var.profile
   region  = var.region
   az_a    = var.az_a
@@ -7,7 +17,7 @@ module "network" {
 }
 
 module "web" {
-  source    = "./backend"
+  source    = "../modules/backend"
   profile   = var.profile
   region    = var.region
   ec2_type  = var.ec2_type
