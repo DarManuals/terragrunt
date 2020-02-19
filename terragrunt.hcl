@@ -15,4 +15,5 @@ inputs = {
   profile = "my"
   az_a = "eu-central-1a"
   az_b = "eu-central-1b"
+  ec2_type = "t2.micro"
 }
