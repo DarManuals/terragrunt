@@ -12,7 +12,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_security_group" "web_sg" {
-  name   = "${var.name}-web_sg"
+  name   = "web_sg-${var.name}"
   vpc_id = var.vpc_id
   ingress {
     from_port   = 80
@@ -33,9 +33,9 @@ resource "aws_instance" "web" {
   instance_type   = var.ec2_type
   subnet_id       = var.subnet_id
   security_groups = [aws_security_group.web_sg.id]
-  tags = {
-    Name = "${var.name}-Web"
-  }
+  tags = merge(var.custom_tags, {
+    Name = "Web-${var.name}"
+  })
 }
 
 variable "profile" {}
@@ -45,4 +45,11 @@ variable "subnet_id" {}
 variable "ec2_type" {}
 variable "name" {
   description = "Name which to use as a prefix for resources"
+}
+variable "custom_tags" {
+  description = "Custom tags to set on the Instances in the ASG"
+  type        = map(string)
+  default = {
+    CustomTag = "custom"
+  }
 }

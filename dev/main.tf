@@ -14,6 +14,7 @@ module "network" {
   region  = var.region
   az_a    = var.az_a
   az_b    = var.az_b
+  name    = "dev"
 }
 
 module "web" {
